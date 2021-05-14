@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { Search } from './pages/Search';
+// import { Search } from './pages/Search';
+import { Profile } from './pages/Profile';
 
 import { GlobalStyle } from './styles/global';
 
 const App = (): JSX.Element => (
   <>
-    <Search />
+    {/* <Search /> */}
+    <Profile />
     <GlobalStyle />
   </>
 );
