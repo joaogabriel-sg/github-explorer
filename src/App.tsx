@@ -1,16 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-// import { Search } from './pages/Search';
-import { Profile } from './pages/Profile';
-
+import { AppRoutes } from './routes';
 import { GlobalStyle } from './styles/global';
 
 const App = (): JSX.Element => (
-  <>
-    {/* <Search /> */}
-    <Profile />
+  <BrowserRouter>
+    <AppRoutes />
     <GlobalStyle />
-  </>
+  </BrowserRouter>
 );
 
 export default App;
