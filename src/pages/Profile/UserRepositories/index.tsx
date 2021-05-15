@@ -1,76 +1,38 @@
 import React from 'react';
 import { IoChevronForward } from 'react-icons/io5';
+
+import { useGithubUser } from '../../../hooks/useGithubUser';
+
 import { Container, Repository } from './styles';
 
-export const UserRepositories = (): JSX.Element => (
-  <Container>
-    <Repository href="https://github.com/joaogabriel-sg">
-      <div>
-        <h4>pokemon</h4>
-        <p>
-          Pokémon is an unofficial Pokémon app that searches in the PokéAPI data
-          about pokémons.
-        </p>
-        <span>JavaScript</span>
-      </div>
-      <IoChevronForward />
-    </Repository>
+export const UserRepositories = (): JSX.Element => {
+  const { user, repositories } = useGithubUser();
 
-    <Repository href="https://github.com/joaogabriel-sg">
-      <div>
-        <h4>star-wars</h4>
-        <p>
-          Star Wars is an unofficial Star Wars app that searches in the SWAPI
-          data about characters, planets, vehicles and spaceships of the
-          franchise.
-        </p>
-        <span>JavaScript</span>
-      </div>
-      <IoChevronForward />
-    </Repository>
+  return (
+    <Container>
+      {repositories.map((repository) => (
+        <Repository
+          key={repository.id}
+          href={repository.html_url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <div>
+            <h4>{repository.name}</h4>
+            {repository.description && <p>{repository.description}</p>}
+            {repository.language && <span>{repository.language}</span>}
+          </div>
+          <IoChevronForward />
+        </Repository>
+      ))}
 
-    <Repository href="https://github.com/joaogabriel-sg">
-      <div>
-        <h4>pokemon</h4>
-        <p>
-          Pokémon is an unofficial Pokémon app that searches in the PokéAPI data
-          about pokémons.
-        </p>
-        <span>JavaScript</span>
-      </div>
-      <IoChevronForward />
-    </Repository>
-
-    <Repository href="https://github.com/joaogabriel-sg">
-      <div>
-        <h4>pokemon</h4>
-        <p>
-          Pokémon is an unofficial Pokémon app that searches in the PokéAPI data
-          about pokémons.
-        </p>
-        <span>JavaScript</span>
-      </div>
-      <IoChevronForward />
-    </Repository>
-
-    <Repository href="https://github.com/joaogabriel-sg">
-      <div>
-        <h4>pokemon</h4>
-        <p>
-          Pokémon is an unofficial Pokémon app that searches in the PokéAPI data
-          about pokémons.
-        </p>
-        <span>JavaScript</span>
-      </div>
-      <IoChevronForward />
-    </Repository>
-
-    <a
-      href="https://github.com/joaogabriel-sg?tab=repositories"
-      target="_blank"
-      rel="noreferrer"
-    >
-      Ver todos
-    </a>
-  </Container>
-);
+      <a
+        href={`https://github.com/${user.login}?tab=repositories`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Ver todos
+      </a>
+    </Container>
+  );
+};

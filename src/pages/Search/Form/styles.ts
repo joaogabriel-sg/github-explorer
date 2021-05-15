@@ -43,6 +43,11 @@ export const Container = styled.form`
       border: none;
       border-radius: 0 8px 8px 0;
 
+      &:disabled {
+        filter: brightness(0.9);
+        cursor: not-allowed;
+      }
+
       svg {
         fill: var(--gray-000);
         width: 3rem;

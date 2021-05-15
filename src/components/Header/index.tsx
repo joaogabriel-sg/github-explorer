@@ -1,5 +1,6 @@
 import React from 'react';
 import { IoChevronBack } from 'react-icons/io5';
+import { useNavigate } from 'react-router';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -9,15 +10,23 @@ interface HeaderProps {
   haveBackButton?: boolean;
 }
 
-export const Header = ({ haveBackButton }: HeaderProps): JSX.Element => (
-  <Container>
-    <img src={logoImg} alt="Github Explorer" />
+export const Header = ({ haveBackButton }: HeaderProps): JSX.Element => {
+  const navigate = useNavigate();
 
-    {haveBackButton && (
-      <button type="button">
-        <IoChevronBack />
-        <span>Voltar</span>
-      </button>
-    )}
-  </Container>
-);
+  function handleGoBack() {
+    navigate('/');
+  }
+
+  return (
+    <Container>
+      <img src={logoImg} alt="Github Explorer" />
+
+      {haveBackButton && (
+        <button type="button" onClick={handleGoBack}>
+          <IoChevronBack />
+          <span>Voltar</span>
+        </button>
+      )}
+    </Container>
+  );
+};

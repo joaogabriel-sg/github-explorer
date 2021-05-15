@@ -1,42 +1,56 @@
 import React from 'react';
 import { IoLink, IoLocation, IoPeople } from 'react-icons/io5';
+import { useGithubUser } from '../../../hooks/useGithubUser';
 
-import { Container, Languages } from './styles';
+import { Container, Language, Languages } from './styles';
 
-export const UserData = (): JSX.Element => (
-  <Container>
-    <img src="https://avatars.githubusercontent.com/u/74667683?v=4" alt="JG" />
+export const UserData = (): JSX.Element => {
+  const { user, languages } = useGithubUser();
 
-    <h2>João Gabriel</h2>
-    <h3>joaogabriel-sg</h3>
+  return (
+    <Container>
+      <img src={user.avatar_url} alt={user.name} />
 
-    <p>
-      Estudante e Desenvolvedor Front-end com o princípio de evoluir pelo menos
-      1% diariamente e poder contribuir com quem necessitar.
-    </p>
+      <h2>{user.name}</h2>
+      <h3>{user.login}</h3>
+      {user.bio && <p>{user.bio}</p>}
 
-    <div>
-      <IoPeople />
-      <span>39 seguidores · 57 seguindo</span>
-    </div>
+      <div>
+        <IoPeople />
+        <span>
+          {user.followers} seguidores · {user.following} seguindo
+        </span>
+      </div>
 
-    <div>
-      <IoLocation />
-      <span>Boa Viagem - CE, Brasil</span>
-    </div>
+      {user.location && (
+        <div>
+          <IoLocation />
+          <span>{user.location}</span>
+        </div>
+      )}
 
-    <div>
-      <IoLink />
-      <a href="http://linkedin.com/in/joaogabriel-sg/">
-        https://www.linkedin.com/in/joaogabriel...
-      </a>
-    </div>
+      {user.blog && (
+        <div>
+          <IoLink />
+          <a href="http://linkedin.com/in/joaogabriel-sg/">
+            https://www.linkedin.com/in/joaogabriel...
+          </a>
+        </div>
+      )}
 
-    <Languages>
-      <button type="button">
-        <span>JavaScript</span>
-      </button>
-      <button type="button">Limpar</button>
-    </Languages>
-  </Container>
-);
+      <Languages>
+        {languages.length &&
+          languages.map((language) => (
+            <Language
+              type="button"
+              key={language.name}
+              langColor={language.color}
+            >
+              <span>{language.name}</span>
+            </Language>
+          ))}
+        <button type="button">Limpar</button>
+      </Languages>
+    </Container>
+  );
+};
