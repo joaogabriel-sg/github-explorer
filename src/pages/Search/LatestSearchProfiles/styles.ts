@@ -12,14 +12,17 @@ export const Container = styled.section`
   }
 `;
 
-export const Profile = styled.a`
+export const Profile = styled.button`
   background: var(--gray-000);
   display: flex;
   align-items: center;
   gap: 1rem;
 
   padding: 2rem;
+  border: none;
   border-radius: 8px;
+
+  text-align: left;
 
   img {
     width: 6rem;

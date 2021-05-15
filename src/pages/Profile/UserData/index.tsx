@@ -39,17 +39,20 @@ export const UserData = (): JSX.Element => {
       )}
 
       <Languages>
-        {languages.length &&
-          languages.map((language) => (
-            <Language
-              type="button"
-              key={language.name}
-              langColor={language.color}
-            >
-              <span>{language.name}</span>
-            </Language>
-          ))}
-        <button type="button">Limpar</button>
+        {languages.length !== 0 && (
+          <>
+            {languages.map((language) => (
+              <Language
+                type="button"
+                key={language.name}
+                langColor={language.color}
+              >
+                <span>{language.name}</span>
+              </Language>
+            ))}
+            <button type="button">Limpar</button>
+          </>
+        )}
       </Languages>
     </Container>
   );

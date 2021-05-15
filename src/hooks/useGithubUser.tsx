@@ -42,6 +42,7 @@ interface Languages {
 
 interface GithubUserContextProps {
   user: User;
+  latestUsers: Pick<User, 'id' | 'name' | 'login' | 'bio' | 'avatar_url'>[];
   repositories: Repository[];
   languages: Languages[];
   loading: boolean;
@@ -66,6 +67,26 @@ export const GithubUserProvider = ({
   const [user, setUser] = useState<User>({} as User);
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [languages, setLanguages] = useState<Languages[]>([]);
+  const [latestUsers, setLatestUsers] = useState<User[]>(() => {
+    const latestUsersInLocal = localStorage.getItem(
+      '@GithubExplorer:latest-users',
+    );
+
+    if (latestUsersInLocal) {
+      return JSON.parse(latestUsersInLocal);
+    }
+
+    return [];
+  });
+
+  useEffect(() => {
+    if (!latestUsers.length) return;
+
+    localStorage.setItem(
+      '@GithubExplorer:latest-users',
+      JSON.stringify(latestUsers),
+    );
+  }, [latestUsers]);
 
   useEffect(() => {
     if (!repositories.length) return;
@@ -96,6 +117,23 @@ export const GithubUserProvider = ({
     getRepositoriesLanguage();
   }, [repositories]);
 
+  function updateLatestUsers(newLatestUser: User) {
+    const haveUserInLatestUsers = latestUsers.find(
+      (latestUser) => latestUser.id === newLatestUser.id,
+    );
+
+    if (haveUserInLatestUsers) {
+      setLatestUsers(latestUsers);
+      return;
+    }
+
+    let newLatestUsers = [...latestUsers, newLatestUser];
+    if (newLatestUsers.length > 6)
+      newLatestUsers = newLatestUsers.slice(newLatestUsers.length - 6);
+
+    setLatestUsers(newLatestUsers);
+  }
+
   async function getUserRepositories(username: string) {
     try {
       setError(false);
@@ -121,6 +159,7 @@ export const GithubUserProvider = ({
       setUser(data);
 
       await getUserRepositories(username);
+      updateLatestUsers(data);
     } catch (err) {
       setError(true);
     } finally {
@@ -133,12 +172,14 @@ export const GithubUserProvider = ({
     setLoading(false);
     setUser({} as User);
     setRepositories([]);
+    setLanguages([]);
   }
 
   return (
     <GithubUserContext.Provider
       value={{
         user,
+        latestUsers,
         repositories,
         languages,
         loading,
