@@ -35,7 +35,7 @@ type LanguageCounter = {
   [key: string]: number;
 };
 
-interface Languages {
+interface Language {
   name: string;
   color: string;
 }
@@ -44,11 +44,13 @@ interface GithubUserContextProps {
   user: User;
   latestUsers: Pick<User, 'id' | 'name' | 'login' | 'bio' | 'avatar_url'>[];
   repositories: Repository[];
-  languages: Languages[];
+  languages: Language[];
+  activeLanguage: string;
   loading: boolean;
   error: boolean;
   getUserData: (username: string) => void;
   resetGithubUser: () => void;
+  updateActiveLanguage: (langName: string) => void;
 }
 
 interface GithubUserProviderProps {
@@ -66,7 +68,8 @@ export const GithubUserProvider = ({
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User>({} as User);
   const [repositories, setRepositories] = useState<Repository[]>([]);
-  const [languages, setLanguages] = useState<Languages[]>([]);
+  const [languages, setLanguages] = useState<Language[]>([]);
+  const [activeLanguage, setActiveLanguage] = useState('');
   const [latestUsers, setLatestUsers] = useState<User[]>(() => {
     const latestUsersInLocal = localStorage.getItem(
       '@GithubExplorer:latest-users',
@@ -116,6 +119,15 @@ export const GithubUserProvider = ({
 
     getRepositoriesLanguage();
   }, [repositories]);
+
+  function updateActiveLanguage(langName: string) {
+    const languageData = languages.find(
+      (language) => language.name === langName,
+    );
+
+    if (languageData) setActiveLanguage(languageData.name);
+    else setActiveLanguage('');
+  }
 
   function updateLatestUsers(newLatestUser: User) {
     const haveUserInLatestUsers = latestUsers.find(
@@ -173,6 +185,7 @@ export const GithubUserProvider = ({
     setUser({} as User);
     setRepositories([]);
     setLanguages([]);
+    setActiveLanguage('');
   }
 
   return (
@@ -182,10 +195,12 @@ export const GithubUserProvider = ({
         latestUsers,
         repositories,
         languages,
+        activeLanguage,
         loading,
         error,
         getUserData,
         resetGithubUser,
+        updateActiveLanguage,
       }}
     >
       {children}

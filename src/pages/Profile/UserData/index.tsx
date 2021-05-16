@@ -1,11 +1,12 @@
 import React from 'react';
 import { IoLink, IoLocation, IoPeople } from 'react-icons/io5';
 import { useGithubUser } from '../../../hooks/useGithubUser';
+import { Langs } from './Langs';
 
-import { Container, Language, Languages } from './styles';
+import { Container } from './styles';
 
 export const UserData = (): JSX.Element => {
-  const { user, languages } = useGithubUser();
+  const { user } = useGithubUser();
 
   return (
     <Container>
@@ -40,22 +41,7 @@ export const UserData = (): JSX.Element => {
         </div>
       )}
 
-      <Languages>
-        {languages.length !== 0 && (
-          <>
-            {languages.map((language) => (
-              <Language
-                type="button"
-                key={language.name}
-                langColor={language.color}
-              >
-                <span>{language.name}</span>
-              </Language>
-            ))}
-            <button type="button">Limpar</button>
-          </>
-        )}
-      </Languages>
+      <Langs />
     </Container>
   );
 };
