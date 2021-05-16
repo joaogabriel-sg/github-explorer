@@ -13,7 +13,11 @@ export const Container = styled.section`
   }
 `;
 
-export const Repository = styled.a`
+interface RepositoryProps {
+  langColor: string;
+}
+
+export const Repository = styled.a<RepositoryProps>`
   background: var(--gray-000);
 
   display: flex;
@@ -21,7 +25,7 @@ export const Repository = styled.a`
   justify-content: space-between;
 
   padding: 2rem;
-  border-right: 8px solid var(--yellow);
+  border-right: 8px solid ${({ langColor }) => langColor || `var(--gray-900)`};
   border-radius: 8px;
 
   div {
@@ -46,13 +50,13 @@ export const Repository = styled.a`
       font-family: var(--font-2);
       font-weight: 600;
       font-size: 1.125rem;
-      color: var(--yellow);
+      color: ${({ langColor }) => langColor || `var(--gray-900)`};
     }
   }
 
   svg {
     width: 2.25rem;
     height: 2.25rem;
-    color: var(--yellow);
+    color: ${({ langColor }) => langColor || `var(--gray-900)`};
   }
 `;

@@ -2,6 +2,7 @@ import React from 'react';
 import { IoChevronForward } from 'react-icons/io5';
 
 import { useGithubUser } from '../../../hooks/useGithubUser';
+import { langColors } from '../../../services/langColors';
 
 import { Container, Repository } from './styles';
 
@@ -24,6 +25,7 @@ export const UserRepositories = (): JSX.Element => {
                 href={repository.html_url}
                 target="_blank"
                 rel="noreferrer"
+                langColor={langColors[repository.language?.toLowerCase()]}
               >
                 <div>
                   <h4>{repository.name}</h4>
