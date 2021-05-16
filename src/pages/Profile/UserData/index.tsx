@@ -32,8 +32,10 @@ export const UserData = (): JSX.Element => {
       {user.blog && (
         <div>
           <IoLink />
-          <a href="http://linkedin.com/in/joaogabriel-sg/">
-            https://www.linkedin.com/in/joaogabriel...
+          <a href={user.blog} target="_blank" rel="noreferrer">
+            {user.blog.length <= 30
+              ? user.blog
+              : `${user.blog.slice(0, 30)}...`}
           </a>
         </div>
       )}
