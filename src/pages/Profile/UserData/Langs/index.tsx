@@ -4,7 +4,7 @@ import { useGithubUser } from '../../../../hooks/useGithubUser';
 import { Container, Language } from './styles';
 
 export const Langs = (): JSX.Element | null => {
-  const { languages, updateActiveLanguage } = useGithubUser();
+  const { languages, activeLanguage, updateActiveLanguage } = useGithubUser();
 
   if (!languages.length) return null;
 
@@ -15,6 +15,7 @@ export const Langs = (): JSX.Element | null => {
           type="button"
           key={language.name}
           langColor={language.color}
+          className={language.name === activeLanguage ? 'active' : ''}
           onClick={() => updateActiveLanguage(language.name)}
         >
           <span>{language.name}</span>

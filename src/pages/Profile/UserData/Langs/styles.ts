@@ -54,7 +54,8 @@ export const Language = styled.button<LanguageProps>`
   font-size: 1rem;
   color: var(--gray-600);
 
-  &:hover {
+  &:hover,
+  &.active {
     span {
       color: ${({ langColor }) => langColor || `var(--gray-900)`};
 
