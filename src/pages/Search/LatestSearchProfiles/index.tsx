@@ -27,9 +27,7 @@ export const LatestSearchProfiles = (): JSX.Element => {
               {latestUser.bio && <p>{latestUser.bio}</p>}
             </div>
 
-            <button type="button">
-              <IoChevronForward />
-            </button>
+            <IoChevronForward />
           </Profile>
         ))}
     </Container>

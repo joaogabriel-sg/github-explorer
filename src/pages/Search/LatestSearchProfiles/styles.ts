@@ -42,14 +42,11 @@ export const Profile = styled.button`
     color: var(--gray-400);
   }
 
-  button {
-    background: none;
-    border: none;
+  svg {
+    margin-left: auto;
 
-    svg {
-      width: 2rem;
-      height: 2rem;
-      stroke: var(--gray-400);
-    }
+    min-width: 2rem;
+    min-height: 2rem;
+    stroke: var(--gray-400);
   }
 `;
