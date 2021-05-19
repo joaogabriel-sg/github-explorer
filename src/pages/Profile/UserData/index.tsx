@@ -19,7 +19,8 @@ export const UserData = (): JSX.Element => {
       <div>
         <IoPeople />
         <span>
-          {user.followers} seguidores · {user.following} seguindo
+          {user.followers} seguidor{user.followers > 1 && 'es'} ·{' '}
+          {user.following} seguindo
         </span>
       </div>
 
