@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import backgroundImg from '../assets/hero.svg';
+
 export const GlobalStyle = createGlobalStyle`
   :root {
     --purple: #6F42C1;
@@ -36,7 +38,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: var(--background);
+    background: var(--background) url(${backgroundImg}) no-repeat;
+    background-size: 60rem;
+    background-position: calc(100% + 10rem) calc(100% + 10rem);
     -webkit-font-smoothing: antialiased;
   }
 
